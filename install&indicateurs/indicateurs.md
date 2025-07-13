@@ -55,3 +55,27 @@ Via Grafana / Prometheus
 ![alt text](image-5.png)
 ![alt text](image-6.png)
 ![alt text](image-7.png)
+
+## Monitorer le pfsense : 
+
+Monitoring via telegraf, extrès d'une conf : 
+
+```Bash
+[[inputs.snmp]]
+  agents = ["udp://192.168.200.1:161"]
+  version = 2
+  community = "public"
+  name = "pfsense"
+
+  [[inputs.snmp.field]]
+    name = "pfsense_mem_used"
+    oid = "UCD-SNMP-MIB::memUsed.0"
+
+  [[inputs.snmp.field]]
+    name = "pfsense_cpu_user"
+    oid = "UCD-SNMP-MIB::ssCpuUser.0"
+
+[[outputs.prometheus_client]]
+  listen = "0.0.0.0:9273"
+```
+
